@@ -932,3 +932,96 @@ body {
   transition: background-color 0.8s ease, border-color 0.8s ease,
     color 0.8s ease;
 }
+/* ===== FOOTER STYLES ===== */
+.app-footer {
+  margin-top: auto;
+  padding: var(--spacing-lg) 0 var(--spacing-md) 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.copyright-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.footer-divider {
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.made-with-love {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heart-icon {
+  width: 14px;
+  height: 14px;
+  color: #ff6b6b;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Footer responsive adjustments */
+@media (max-width: 479px) {
+  .footer-content {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    font-size: 0.8rem;
+  }
+
+  .footer-divider {
+    display: none;
+  }
+
+  .app-footer {
+    padding: var(--spacing-md) 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .footer-content {
+    font-size: 0.85rem;
+  }
+}
+
+/* Hover effect for footer on desktop */
+@media (hover: hover) {
+  .app-footer:hover .heart-icon {
+    animation-duration: 0.8s;
+    color: #ff5252;
+  }
+
+  .app-footer:hover .copyright-icon {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+}
