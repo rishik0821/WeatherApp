@@ -2,24 +2,207 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#667eea" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent" />
+    <title>WeatherNow - Modern Weather App</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="container">
-      <h1>Weather App</h1>
-      <div class="input-container">
-        <input type="text" id="city-input" placeholder="Enter city name" />
-        <button id="get-weather-btn">Get Weather</button>
+    <!-- Background Effects -->
+    <div class="bg-animation"></div>
+    <div id="particles"></div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <h1 class="app-title">WeatherNow</h1>
+        <p class="app-subtitle">Real-time weather updates</p>
+      </header>
+
+      <!-- Search Section -->
+      <div class="search-container">
+        <div class="search-box">
+          <svg
+            class="search-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="21 21l-4.35-4.35"></path>
+          </svg>
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Search for a city..."
+            autocomplete="off"
+          />
+          <button id="search-btn" class="search-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="9,18 15,12 9,6"></polyline>
+            </svg>
+          </button>
+        </div>
       </div>
-      <div id="weather-info" class="hidden">
-        <h2 id="city-name"></h2>
-        <p id="temperature"></p>
-        <p id="description"></p>
+
+      <!-- Weather Display -->
+      <div id="weather-display" class="weather-display hidden">
+        <!-- Main Weather Card -->
+        <div class="main-weather-card">
+          <div class="location-info">
+            <h2 id="city-name" class="city-name"></h2>
+            <p id="date-time" class="date-time"></p>
+          </div>
+
+          <div class="weather-main">
+            <div class="weather-icon-container">
+              <img id="weather-icon" class="weather-icon" alt="Weather" />
+            </div>
+            <div class="temperature-info">
+              <span id="temperature" class="temperature"></span>
+              <span id="description" class="description"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Details Grid -->
+        <div class="weather-details-grid">
+          <div class="detail-card">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                ></path>
+              </svg>
+            </div>
+            <div class="detail-info">
+              <span class="detail-label">Feels Like</span>
+              <span id="feels-like" class="detail-value"></span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <div class="detail-info">
+              <span class="detail-label">Humidity</span>
+              <span id="humidity" class="detail-value"></span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                  d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"
+                ></path>
+              </svg>
+            </div>
+            <div class="detail-info">
+              <span class="detail-label">Wind Speed</span>
+              <span id="wind-speed" class="detail-value"></span>
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div class="detail-info">
+              <span class="detail-label">UV Index</span>
+              <span id="uv-index" class="detail-value"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sun Times -->
+        <div class="sun-times-card">
+          <div class="sun-time">
+            <div class="sun-icon sunrise">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div>
+              <p class="sun-label">Sunrise</p>
+              <p id="sunrise" class="sun-value"></p>
+            </div>
+          </div>
+          <div class="sun-time">
+            <div class="sun-icon sunset">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div>
+              <p class="sun-label">Sunset</p>
+              <p id="sunset" class="sun-value"></p>
+            </div>
+          </div>
+        </div>
       </div>
-      <p id="error-message" class="hidden">City not found. Please try again.</p>
+
+      <!-- Error Message -->
+      <div id="error-message" class="error-message hidden">
+        <svg
+          class="error-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="15" y1="9" x2="9" y2="15"></line>
+          <line x1="9" y1="9" x2="15" y2="15"></line>
+        </svg>
+        <p>City not found. Please try again.</p>
+      </div>
+
+      <!-- Loading -->
+      <div id="loading" class="loading hidden">
+        <div class="loader"></div>
+        <p>Getting weather data...</p>
+      </div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
